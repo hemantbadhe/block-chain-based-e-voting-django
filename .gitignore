@@ -1,7 +1,6 @@
 __pycache__
 .idea
 simulation/migrations/*.py
-utils/*
 
 UPDATE sqlite_sequence SET seq = <n> WHERE name = '<table>';
 ALTER TABLE table AUTO_INCREMENT = 1

@@ -1,0 +1,66 @@
+{% load static %}
+{#{% block title_bl %}Sign Up{% endblock %}#}
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Blockchain Voting</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+    <script src="{% static 'js/main.js' %}"></script>
+</head>
+{% block body_bl %}
+    <div class="container">
+        <div>
+            <p style="text-align: center;"><img src="{% static 'ballot/img/logo.png' %}"></p>
+            <h1 style="padding-bottom:5%; text-align: center">Blockchain Voting Sign Up</h1>
+        </div>
+        <form action="{% url 'welcome:sign_up' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="form-group" style="margin-left: 29%">
+                <div class="row col-md-12">
+                    <label for="voter-id-input" class="col-md-3">First Name:</label>
+                    <input name="first_name" type="text" class="form-control col-md-4" id="first_name"
+                           placeholder="Enter First name" autofocus required>
+                </div>
+                <br>
+                <div class="row col-md-12">
+                    <label for="voter-id-input" class="col-md-3">Last Name:</label>
+                    <input name="last_name" type="text" class="form-control col-md-4" id="last_name"
+                           placeholder="Enter Last name" autofocus required>
+                </div>
+                <br>
+                <div class="row col-md-12">
+                    <label for="voter-id-input" class="col-md-3">Email:</label>
+                    <input name="email" type="email" class="form-control col-md-4" id="email"
+                           placeholder="Enter Email" autofocus required>
+                </div>
+                <br>
+                <div class="row col-md-12">
+                    <label for="voter-id-input" class="col-md-3">Password:</label>
+                    <input name="password" type="password" class="form-control col-md-4" id="password"
+                           placeholder="Enter Password" autofocus required>
+                </div>
+                <br>
+                <div class="row col-md-12">
+                    <label for="voter-id-input" class="col-md-3">Confirm Password:</label>
+                    <input name="cfm_password" type="password" class="form-control col-md-4" id="cfm_password"
+                           placeholder="Confirm Password" autofocus required>
+                </div>
+            </div>
+            <button type="submit" style="width: 25%; margin-left: 36%" class="btn btn-primary" id="submit">Sign Up
+            </button> &nbsp;&nbsp;&nbsp;<a href="{% url 'welcome:user_login' %}">Log In</a>
+        </form>
+    </div>
+
+{#    <script type="text/javascript">#}
+{#        $(document).ready(function () {#}
+{#            $("#submit").click(function () {#}
+{#                alert('**')#}
+{#                return false;#}
+{#            })#}
+{#        })#}
+{#    </script>#}
+{% endblock %}

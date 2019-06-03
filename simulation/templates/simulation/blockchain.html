@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load sim_filters %}
+{% block title_bl %}Blocks{% endblock %}
+
+{% block body_bl %}
+<div class="container">
+    <h1>List of blocks</h1>
+    <a class="btn btn-light btn-sm" href="{% url 'simulation:transactions' %}" role="button">See all transactions</a>
+    <a class="btn btn-light btn-sm" href="{% url 'welcome:home' %}" role="button">Back to homepage</a>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="{{ message.extra_tags }} text-white">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Previous Hash</th>
+                <th scope="col">Block Hash</th>
+                <th scope="col">Merkle Root Hash</th>
+                <th scope="col">Nonce</th>
+                <th scope="col">Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for block in blocks %}
+            <tr>
+                <td><a href="{% url 'simulation:block_detail' block_hash=block.h %}">{{ block.id }}</a></th>
+                <td title="{{ block.prev_h }}"><code>{{ block.prev_h|truncatechars:30 }}</code></td>
+                <td title="{{ block.h }}"><code>{{ block.h|truncatechars:30 }}</code></td>
+                <td title="{{ block.merkle_h }}"><code>{{ block.merkle_h|truncatechars:30 }}</code></td>
+                <td>{{ block.nonce }}</td>
+                <td>{{ block.timestamp|unix_to_date|date:"Y-m-d H:i:s" }}</td>
+            </tr>
+            {% empty %}
+                <p>No record.</p>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-outline-primary btn-block" href="{% url 'simulation:verify' %}" role="button" title="Verify all transactions in each block">Verify</a>
+{#    <a class="btn btn-outline-primary btn-block" href="{% url 'simulation:sync' %}" role="button" title="Sync data with virtual nodes">Sync</a>#}
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% load static %}
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Blockchain Voting</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+    <script src="{% static 'js/main.js' %}"></script>
+</head>
+{% block body_bl %}
+    <div class="container">
+        <div>
+{#            {% if messages %}#}
+{#                {% for message in messages %}#}
+{#                    <div class="alert alert-success" id="success-alert">#}
+{#                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span#}
+{#                                aria-hidden="true">&times;</span>#}
+{#                        </button>#}
+{#                        {{ message|escape }}#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            {% endif %}#}
+            <p style="text-align: center;"><img src="{% static 'ballot/img/logo.png' %}"></p>
+            <h1 style="padding-bottom:5%; text-align: center">Blockchain Voting Log In</h1>
+
+        </div>
+        <form action="{% url 'welcome:user_login' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="form-group" style="margin-left: 29%">
+                <div class="row col-md-12">
+                    <label for="voter-id-input" class="col-md-3">Email:</label>
+                    <input name="email" type="text" class="form-control col-md-4" id="first_name"
+                           placeholder="Email" autofocus>
+                </div>
+                <br>
+                <div class="row col-md-12">
+                    <label for="voter-id-input" class="col-md-3">Password:</label>
+                    <input name="password" type="password" class="form-control col-md-4" id="last_name"
+                           placeholder="Password" autofocus>
+                </div>
+                <br>
+            </div>
+
+            <button type="submit" style="width: 25%; margin-left: 38%" class="btn btn-primary btn-block">Log in
+            </button>
+        </form>
+        <a style="margin-left: 32%;" href="{% url 'welcome:sign_up' %}">Don't having Login Credentials, click here to
+            register yourself.</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+{#    <script type="text/javascript">#}
+{#        $(document).ready(function () {#}
+{#            window.setTimeout(function () {#}
+{#                $("#success-alert").fadeTo(500, 0).slideUp(500, function () {#}
+{#                    $(this).remove();#}
+{#                });#}
+{#            }, 4000);#}
+{#        })#}
+{#    </script>#}
+{% endblock %}

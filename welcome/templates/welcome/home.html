@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title_bl %}Home{% endblock %}
+
+{% block body_bl %}
+    <div class="container">
+        <div>
+            <div style="text-align: center;">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            {#            <p style="text-align: center;"><img src="{% static 'ballot/img/logo.png' %}"></p>#}
+            <h1 style="padding-top:4%;padding-bottom:3%; text-align: center">Blockchain Voting</h1>
+
+        </div>
+        <div class="row">
+            <div class="col-md-5 menu">
+                <h2>"BLOCK"</h2>
+                <p>This part will show:</p>
+                <ul>
+                    <li>Example of ballot</li>
+                    <li>Ballot structure</li>
+                    <li>Signature verification</li>
+                    <li>Block sealing process</li>
+                </ul>
+                <div class="btn-menu">
+                    <a class="btn btn-outline-primary btn-block btn-menu" href="{% url 'ballot:create' %}"
+                       role="button">Start</a>
+                </div>
+            </div>
+            <div class="col-md-5 menu">
+                <h2>"CHAIN"</h2>
+                <p>This part will show:</p>
+                <ul>
+                    <li>Batch transactions</li>
+                    <li>Block chaining</li>
+                    <li>Block detail</li>
+                    <li>Blocks verification</li>
+                </ul>
+                <div class="btn-menu">
+                    <a class="btn btn-link btn-menu" href="{% url 'simulation:transactions' %}" role="button">See
+                        transactions</a>
+                    <a class="btn btn-link btn-menu" href="{% url 'simulation:blockchain' %}" role="button">See
+                        blocks</a>
+                    <a class="btn btn-link btn-menu" href="{% url 'welcome:clear_data' %}" role="button">Clear Data</a>
+                    {#                    <a class="btn btn-outline-primary btn-menu" href="{% url 'simulation:generate' %}" role="button">Start</a>#}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

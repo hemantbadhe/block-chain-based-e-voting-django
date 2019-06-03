@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sim_filters %}
+{% block title_bl %}Block #{{ bk.pk }}{% endblock %}
+
+{% block body_bl %}
+<div class="container">
+    <h1 class="pb-1">Block #{{ bk.id }}</h1>
+    <a class="btn btn-light btn-sm" href="{% url 'simulation:blockchain' %}" role="button">Back to blocks list</a>
+    <a class="btn btn-light btn-sm" href="{% url 'welcome:home' %}" role="button">Back to homepage</a>
+    <div class="mt-1" style="padding: 3%; border: 1px solid black;">
+        <dl class="row">
+            <dt class="col-sm-3">Previous hash</dt>
+            <dd class="col-sm-9"><code>{{ bk.prev_h }}</code></dd>
+
+            <dt class="col-sm-3">Merkle root hash</dt>
+            <dd class="col-sm-9"><code>{{ bk.merkle_h }}</code></dd>
+
+            <dt class="col-sm-3">Block hash</dt>
+            <dd class="col-sm-9"><code>{{ bk.h }}</code></dd>
+
+            <dt class="col-sm-3">Nonce</dt>
+            <dd class="col-sm-9">{{ bk.nonce }}</dd>
+
+            <dt class="col-sm-3">Timestamp</dt>
+            <dd class="col-sm-9">{{ bk.timestamp|unix_to_date|date:"Y-m-d H:i:s" }} ({{ bk.timestamp|unix_to_date|timesince }} ago)</dd>
+
+            <dt class="col-sm-3">Confirmations</dt>
+            <dd class="col-sm-9">{{ confirmed_by }} confirmations</dd>
+        </dl>
+    </div>
+    <div class="p-2" id="block-navigation">
+        {% if prev_block %}
+            <a class="btn btn-primary btn-sm" href="{% url 'simulation:block_detail' block_hash=prev_block.h %}" role="button">Previous block</a>
+        {% endif %}
+        {% if next_block %}
+            <a class="btn btn-primary btn-sm" href="{% url 'simulation:block_detail' block_hash=next_block.h %}" role="button">Next block</a>
+        {% endif %}
+    </div>
+    <div>
+        <h2>Transactions</h2>
+        <p>Re-calculated merkle root hash: <code>{{ verified_merkle_h }}</code></p>
+        {% if tampered %}
+        <div class="bg-danger text-white">
+            <p>Transactions are tampered <a class="btn btn-primary btn-sm" href="{% url 'simulation:sync_block' block_id=bk.id %}" role="button">Sync with other nodes</a></p>
+        </div>
+        {% else %}
+            <div class="bg-success text-white">
+                <p>Transactions are not tampered</p>
+            </div>
+        {% endif %}
+
+        <small>Showing page {{ transactions_pg.number }} of {{ transactions_pg.paginator.num_pages }}</small>
+        <div class="pagination pb-2">
+            <span class="step-links">
+                {% if transactions_pg.has_previous %}
+                    <a class="btn btn-light btn-sm" href="?page=1" role="button">&laquo; First</a>
+                    <a class="btn btn-light btn-sm" href="?page={{ transactions_pg.previous_page_number }}" role="button">Previous</a>
+                {% endif %}
+                {% if transactions_pg.has_next %}
+                    <a class="btn btn-light btn-sm" href="?page={{ transactions_pg.next_page_number }}" role="button">Next</a>
+                    <a class="btn btn-light btn-sm" href="?page={{ transactions_pg.paginator.num_pages }}" role="button">Last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Voter ID</th>
+                    <th scope="col">Cand</th>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">Hash</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t, h in transactions %}
+                <tr>
+                    <td>{{ forloop.counter }}</th>
+                    <td><code>{{ t.id }}</code></td>
+                    <td>{{ t.vote }}</td>
+                    <td>{{ t.timestamp|unix_to_date|date:"Y-m-d H:i:s" }}</td>
+                    <td title="{{ h }}"><code>{{ h|truncatechars:32 }}</code></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

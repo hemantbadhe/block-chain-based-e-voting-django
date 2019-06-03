@@ -1,0 +1,8 @@
+configparser==3.7.4
+Django==2.1.2
+django-extensions==2.1.6
+pkg-resources==0.0.0
+pycryptodome==3.8.1
+PyMySQL==0.9.3
+pytz==2019.1
+six==1.12.0

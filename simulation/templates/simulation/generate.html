@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title_bl %}Transactions{% endblock %}
+
+{% block body_bl %}
+<div class="container">
+    <h1>List of unconfirmed votes</h1>
+    <p>Showing last 100 transactions (or all if &lt;=100)</p>
+    
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Voter ID</th>
+                <th scope="col">Vote</th>
+                <th scope="col">Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ballot in votes %}
+            <tr>
+                <td><code>{{ ballot.id }}</code></th>
+                <td>{{ ballot.vote }}</td>
+                <td>{{ ballot.timestamp }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a class="btn btn-primary btn-block" href="{% url 'simulation:seal' %}" role="button">Mine into blocks</a>
+</div>
+{% endblock %}

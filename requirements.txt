@@ -1,5 +1,5 @@
 configparser==3.7.4
-Django==2.1.2
+Django==2.2.10
 django-extensions==2.1.6
 pkg-resources==0.0.0
 pycryptodome==3.8.1
